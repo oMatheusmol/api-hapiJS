@@ -16,17 +16,16 @@ export default class DriverRepository {
     this.server.route({
       method: 'POST',
       path: `${this.path}`,
+      config: {
+        pre: [{ method: authMiddleware }],
+      },
       handler: async (request: any, h: any) => {
-        const auth = authMiddleware(request);
-        if (!auth) return { message: 'Access Denied' };
-
         const repository = getRepository(VehicleEntity);
 
         const vehicle = await repository.find({ licenseplate: request.payload.licenseplate });
         if (vehicle.length > 0) return { message: 'Vehicle already exist' };
 
         const result = await repository.save(request.payload);
-
         return { message: 'Vehicle created with success', vehicleid: result.id };
       },
     });
@@ -36,10 +35,10 @@ export default class DriverRepository {
     this.server.route({
       method: 'GET',
       path: `${this.path}`,
+      config: {
+        pre: [{ method: authMiddleware }],
+      },
       handler: async (request: any, h: any) => {
-        const auth = authMiddleware(request);
-        if (!auth) return { message: 'Access Denied' };
-
         const repository = getRepository(VehicleEntity);
         return await repository.find({ id: request.headers.id });
       },

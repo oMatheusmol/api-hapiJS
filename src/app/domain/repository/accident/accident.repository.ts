@@ -8,7 +8,7 @@ export default class AccidentRepository {
   path: string;
   constructor(server: any) {
     this.server = server;
-    this.path = '/accident';
+    this.path = '/accidents';
     this.post();
     this.get();
   }
@@ -17,10 +17,10 @@ export default class AccidentRepository {
     this.server.route({
       method: 'POST',
       path: `${this.path}`,
+      config: {
+        pre: [{ method: authMiddleware }],
+      },
       handler: async (request: any, h: any) => {
-        const auth = authMiddleware(request);
-        if (!auth) return { message: 'Access Denied' };
-
         const repository = getRepository(AccidentEntity);
         const driverRepository = getRepository(DrivertEntity);
 
@@ -39,14 +39,13 @@ export default class AccidentRepository {
           });
 
           return { message: 'Accident created with success', accidentId: result.id };
-        }else{
+        } else {
           const result = await repository.save({
             driverid: driver[0].id,
             vehicleid: request.payload.vehicleid,
           });
           return { message: 'Accident created with success', accidentId: result.id };
         }
-
       },
     });
   }
@@ -55,11 +54,11 @@ export default class AccidentRepository {
     this.server.route({
       method: 'GET',
       path: `${this.path}`,
+      config: {
+        pre: [{ method: authMiddleware }],
+      },
       handler: async (request: any, h: any) => {
         try {
-          const auth = authMiddleware(request);
-          if (!auth) return { message: 'Access Denied' };
-
           const repository = getRepository(AccidentEntity);
           return await repository.find({ id: request.headers.id });
         } catch (e) {
