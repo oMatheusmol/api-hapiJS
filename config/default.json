@@ -1,0 +1,35 @@
+{
+  "ENV": "development",
+  "SERVER": {
+    "HOST": "localhost",
+    "PORT": 7000
+  },
+  "TEST": {
+    "HOST": "localhost",
+    "PORT": 7000
+  },
+  "DB": {
+    "POSTGRES": {
+      "TYPE": "postgres",
+      "HOST": "127.0.0.1",
+      "PORT": 5432,
+      "USER": "postgres",
+      "PASSWORD": "docker",
+      "DATABASE": "database",
+      "CONNECTION_TIMEOUT": 20000,
+      "REQUEST_TIMEOUT": 30000,
+      "POOL": {
+        "MAX": 20,
+        "MIN": 1
+      },
+      "OPTIONS": {
+        "ENCRYPT": false
+      }
+    }
+  },
+  "AUTH": {
+    "LOGIN": "admin",
+    "PASSWORD": "admin",
+    "SECRET": "chave"
+  }
+}
