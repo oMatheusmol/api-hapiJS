@@ -1,8 +1,8 @@
-import VehicleRepository from "../domain/repository/vehicle/vehicle.repository";
+import { Server } from 'hapi';
+import VehicleRepository from '../domain/repository/vehicle/vehicle.repository';
 
 export default class VehicleController extends VehicleRepository {
-  server: any;
-  constructor(server: any) {
+  constructor(server: Server) {
     super(server);
   }
 }

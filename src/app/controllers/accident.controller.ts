@@ -1,8 +1,8 @@
-import AccidentRepository from "../domain/repository/accident/accident.repository";
+import { Server } from 'hapi';
+import AccidentRepository from '../domain/repository/accident/accident.repository';
 
 export default class AccidentController extends AccidentRepository {
-  server: any;
-  constructor(server: any) {
+  constructor(server: Server) {
     super(server);
   }
 }

@@ -9,7 +9,6 @@ export const init: any = async () => {
     port: config.get('SERVER.PORT'),
     host: config.get('SERVER.HOST'),
   });
-
   new Routes(server);
   await server.start();
   console.log('Server running on %ss', server.info.uri);

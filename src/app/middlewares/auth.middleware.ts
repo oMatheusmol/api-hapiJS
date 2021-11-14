@@ -1,7 +1,7 @@
 import { verify } from 'jsonwebtoken';
 import config from 'config';
 
-export const authMiddleware = (req: any, reply: any) => {
+export const authMiddleware = (req: any, reply: any): Error | any => {
   const token = req.headers['x-api-key'];
   const secret: string = config.get('AUTH.SECRET');
   if (token) {
